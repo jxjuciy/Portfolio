@@ -1,0 +1,57 @@
+.interactive {
+  transition: transform 300ms ease, border-color 300ms ease, background-color 300ms ease, box-shadow 300ms ease;
+}
+.interactive:focus-visible, .interactive:focus-within {
+  border-color: #5b8cdc;
+}
+@media (hover: hover) and (pointer: fine) {
+  .interactive:hover {
+    position: relative;
+    z-index: 1;
+    transform: scale(1.04);
+    border-color: #4e83e1;
+    background-color: #121f39;
+    box-shadow: 0 0 18px #3679ff30, 0 10px 24px #0007;
+  }
+  .project-card:hover .project-preview img, .project-card:hover .preview-art { transform: scale(1.075); }
+  .project-card:hover .project-arrow { transform: translate(2px, -2px); }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
+@media (hover: none), (pointer: coarse) {
+  .interactive:active {
+    transform: scale(.985);
+    background-color: #152541;
+    border-color: #4e83e1;
+  }
+}
+.marquee-track { animation: scroll-skills 33s linear infinite; }
+.marquee[data-paused='true'] .marquee-track { animation-play-state: paused; }
+.marquee:has(:focus-visible) { overflow: visible; mask-image: none; padding-inline: 9px; }
+.marquee:has(:focus-visible) .marquee-track { animation: none; width: 100%; }
+.marquee:has(:focus-visible) .skill-group { flex-wrap: wrap; flex-basis: 100%; padding-right: 0; }
+.marquee:has(:focus-visible) .skill-group[aria-hidden] { display: none; }
+@keyframes scroll-skills {
+  to { transform: translateX(-50%); }
+}
+@keyframes section-frame-shift {
+  from { background-position: 0 0, 0% 50%; }
+  to { background-position: 0 0, 100% 50%; }
+}
+@keyframes section-glow-drift {
+  from { background-position: 0% 0%, 100% 100%; }
+  to { background-position: 100% 30%, 0% 70%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .interactive:hover, .interactive:active, .project-card:hover .project-preview img,
+  .project-card:hover .preview-art, .project-card:hover .project-arrow { transform: none; }
+  .marquee { overflow: visible; mask-image: none; padding-inline: 9px; }
+  .marquee-track { animation: none; width: 100%; }
+  .skill-group { flex-wrap: wrap; flex-basis: 100%; padding-right: 0; }
+  .skill-group[aria-hidden], .motion-toggle { display: none; }
+}
